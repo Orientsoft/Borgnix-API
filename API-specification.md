@@ -10,6 +10,7 @@ Borgnix系统中，API分为用户管理、设备管理、设备通信三类。�
 - **BorgUserRegister(username, password)**  
   Return: {uuid: userUUID, token: userToken}  
   说明：用户名密码注册，返回用户UUID和Token
+  **Note**：在注册失败时返回值的确定？
 
 - **BorgUserResetToken(uuid)**  
 Return: {token: userToken}  
@@ -30,13 +31,14 @@ Return: {del: [uuid]}
 ------------
 设备管理API，是与用户绑定的操作，需要验证用户（通过UUID/Token）。
 
-- **BorgDevRegister(userUuid, userToken)**  
+- **BorgDevRegister(devType, devDesc)**  
 Return: {uuid: devUUID, token: devToken}  
-说明：该API用于设备端申请UUID和Token   
+说明：该API用于设备端申请UUID和Token，注册后需要与用户进行关联   
 
 - **BorgDevClaim([uuid], userUuid, userToken)**  
 Return: {updated: [uuid, token]}  
-说明：可以一次性声明多个设备，需要用户验证。返回声明成功的设备UUID/Token  
+说明：将多个设备与用户进行关联，返回关联成功的设备uuid  
+Note：设备token在注册获取还是在关联获取？
 
 - **BorgDevList(userUuid, userToken)**  
 Return: {devices: [uuid, token, online]}  
@@ -55,9 +57,11 @@ Return: {del: [uuid]}
 
 设备通信API与用户无关，直接使用设备的认证信息。
 
-- **BorgDevConnect(host, port, uuid, token, type, msgCB)**  
-Return: {status: ‘online’}  
-说明：在连接的时候，指定设备类型和收到数据的Callback。Connect API内部会自动管理Socket，当已经有Socket连接的时候自动重用。  
+- **BorgDevConnect(host, port, uuid, token, msgCB)**  
+Return: {status: status}  
+连接成功时返回值中status为‘success’，失败时为‘failed’
+说明：在连接的时候，指定收到数据的Callback。Connect API内部会自动管理Socket，当已经有Socket连接的时候自动重用。注册成功后，设备publish使用uuid_up,subcribe使用uuid_down。  
+
 
 - **BorgDevDisconnect(uuid, token)**  
 Return: {}  
