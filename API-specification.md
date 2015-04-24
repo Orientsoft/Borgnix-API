@@ -55,7 +55,7 @@ Return: {del: [uuid]}
 
 设备通信API与用户无关，直接使用设备的认证信息。
 
-- **BorgDevConnect(host, port, uuid, token, type, msgCB)**  
+- **BorgDevConnect(host, port, uuid, token, msgCB)**  
 Return: {status: ‘online’}  
 说明：在连接的时候，指定设备类型和收到数据的Callback。Connect API内部会自动管理Socket，当已经有Socket连接的时候自动重用。  
 
