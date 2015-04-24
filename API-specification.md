@@ -69,5 +69,6 @@ Return: {}
 Return: {}  
 说明：用户只需给出payload，API会自动添加通信协议层数据项。  
 
+Retired:
 - **BorgDevReceive()**  
 Return: dataJson  
