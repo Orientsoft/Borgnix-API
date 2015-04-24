@@ -58,10 +58,15 @@ Return: {del: [uuid]}
 设备通信API与用户无关，直接使用设备的认证信息。
 
 - **BorgDevConnect(host, port, uuid, token, msgCB)**  
+<<<<<<< HEAD
 Return: {status: status}  
 连接成功时返回值中status为‘success’，失败时为‘failed’
 说明：在连接的时候，指定收到数据的Callback。Connect API内部会自动管理Socket，当已经有Socket连接的时候自动重用。注册成功后，设备publish使用uuid_up,subcribe使用uuid_down。  
 
+=======
+Return: {status: ‘online’}  
+说明：在连接的时候，指定设备类型和收到数据的Callback。Connect API内部会自动管理Socket，当已经有Socket连接的时候自动重用。  
+>>>>>>> origin/master
 
 - **BorgDevDisconnect(uuid, token)**  
 Return: {}  
