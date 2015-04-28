@@ -11,26 +11,23 @@ Borgnix系统中，API分为用户管理、设备管理、设备通信三类。�
 Return: {uuid: userUUID, token: userToken}  
 说明：用户名密码登录，返回用户UUID和Token  
 ```
-client.pub('user/username/login/up', {username: username, password: password})
+client.pub('user/login/up', {username: username, password: password})
 client.sub('user/username/login/down')
-server.sub('user/+/login/up')
+server.sub('user/login/up')
 server.pub('user/username/login/down', {uuid: userUuid, token: userToken})
 ```
 
 - **BorgUserLogout(uuid, token)**  
 Return: {}  
-```
-client.pub('user/userUuid/logout/up')
-server.sub('user/userUuid/logout/up')
-```
+
 
 - **BorgDevList(userUuid, userToken)**  
 Return: {devices: [uuid, token, online]}  
 说明：查询用户的所有设备，返回设备UUID/Token/在线状态  
 ```
-client.pub('user/userUuid/dev_list/up', {uuid:UUID, token:TOKEN})
+client.pub('user/dev_list/up', {uuid:UUID, token:TOKEN})
 client.sub('user/userUuid/dev_list/down')
-server.sub('user/+/dev_list/up')
+server.sub('user/dev_list/up')
 server.pub( 'user/userUuid/dev_list/down'
           , [{uuid:UUID, token:TOKEN, status:STATUS}])
 ```
@@ -45,24 +42,15 @@ server.pub( 'user/userUuid/dev_list/down'
 Return: {status: status}  
 连接成功时返回值中status为‘success’，失败时为‘failed’  
 说明：在连接的时候，指定收到数据的Callback。Connect API内部会自动管理Socket，当已经有Socket连接的时候自动重用。注册成功后，设备publish使用dev/UUID/up,subcribe使用dev/UUID/down。  
-```
-client.pub('dev/UUID/auth/up', {uuid: UUID, token: TOKEN})
-client.sub('dev/UUID/auth/down')
-server.sub('dev/+/auth/up')
-server.pub('dev/UUID/auth/down', {status:STATUS})
-```
 
 - **BorgDevDisconnect(uuid, token)**  
 Return: {}  
-```
-client.pub('dev/UUID/disconnect/up')
-```
 
 - **BorgDevSend(payload)**  
 Return: {}  
 说明：用户只需给出payload，API会自动添加通信协议层数据项。  
 ```
-client.pub('dev/DEV_UUID/up', payload)
+client.pub('dev/DEV_UUID/up', wrap(payload))
 ```
 
 管理
