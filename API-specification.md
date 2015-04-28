@@ -41,7 +41,7 @@ server.pub( 'user/userUuid/dev_list/down'
 - **BorgDevConnect(host, port, uuid, token, msgCB)**  
 Return: {status: status}  
 连接成功时返回值中status为‘success’，失败时为‘failed’  
-说明：在连接的时候，指定收到数据的Callback。Connect API内部会自动管理Socket，当已经有Socket连接的时候自动重用。注册成功后，设备publish使用dev/UUID/up,subcribe使用dev/UUID/down。  
+说明：在连接的时候，指定收到数据的Callback。Connect API内部会自动管理Socket，当已经有Socket连接的时候自动重用。注册成功后，设备publish使用UUID/i,subcribe使用UUID/o。  
 
 - **BorgDevDisconnect(uuid, token)**  
 Return: {}  
