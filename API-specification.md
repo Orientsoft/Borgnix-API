@@ -68,6 +68,7 @@ client.pub('dev/DEV_UUID/up', payload)
 管理
 -----
 
+<<<<<<< HEAD
 - **BorgUserRegister(username, password)**  
   Return: {uuid: userUUID, token: userToken}  
   说明：用户名密码注册，返回用户UUID和Token
@@ -118,3 +119,8 @@ client.pub('user/userUuid/claim/up'
       , devices:[DEV_UUID]
       })
 ```
+=======
+Retired:
+- **BorgDevReceive()**  
+Return: dataJson  
+>>>>>>> origin/master
