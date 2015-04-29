@@ -37,20 +37,24 @@ server.pub( 'user/userUuid/dev_list/down'
 ------------
 
 
-- **Connect**  
-1. 使用设备uuid和token做验证，用户指定clientID（用于表示设备类型，可以重复，与认证无关），连接到borgnix MQTT broker；
-2. 连接成功后，subscribe ***uuid/i***，确定收到消息后的回调函数。
+- **Connect**
 
-- **Disconnect**  
-1. 断开与borgnix MQTT broker 的连接。
+  1. 使用设备uuid和token做验证，用户指定clientID（用于表示设备类型，可以重复，与认证无关），连接到borgnix MQTT broker；
+  2. 连接成功后，subscribe ***uuid/i***，确定收到消息后的回调函数。
 
-- **Send**  
-1. 将payload根据通信层协议封装；
-2. 将封装后的包用***uuid/o*** publish到borgnix MQTT broker。
+- **Disconnect**
 
-- **Receive**  
-1. 收到***uuid/i***的消息时，根据通信层协议对消息进行解码，得到payload；
-2. 将payload传给相应的回调函数。
+  1. 断开与borgnix MQTT broker 的连接。
+
+- **Send**
+
+  1. 将payload根据通信层协议封装；
+  2. 将封装后的包用***uuid/o*** publish到borgnix MQTT broker。
+
+- **Receive**
+
+  1. 收到***uuid/i***的消息时，根据通信层协议对消息进行解码，得到payload；
+  2. 将payload传给相应的回调函数。
 
 管理
 -----
