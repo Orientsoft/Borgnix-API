@@ -58,7 +58,7 @@ server.pub( 'user/userUuid/dev_list/down'
 
 **规定**
 - **通信层协议**
-```json
+```
 {
       src: <sender_uuid>,
       tgt: <receiver_uuid>,
@@ -70,13 +70,13 @@ server.pub( 'user/userUuid/dev_list/down'
       payload: { content }
 }
 ```
-**src**：发送者的UUID
-**dst**：接收者的UUID（与云服务器通信其实不需要该字段，但保留该字段，用于以后支持透传功能）
-**time**：发送时间戳，有两个作用，一是确定消息时间，二是配合加密算法抵抗重播攻击
-**action**：该信息的意义
-**type**：发送者的类型（sensor、回路、Gate、Server...实际取值要具体说明是什么Sensor，比如temperature、light等）
-**sign**：对该条消息的签名（利用公钥算法，防止消息伪造，Demo中可以不实现，保留字段）
-**ver**：协议的版本号（在协议升级的时候，服务器可以识别老的设备，也可以实现新老设备混用）
+**src**：发送者的UUID  
+**dst**：接收者的UUID（与云服务器通信其实不需要该字段，但保留该字段，用于以后支持透传功能）  
+**time**：发送时间戳，有两个作用，一是确定消息时间，二是配合加密算法抵抗重播攻击  
+**action**：该信息的意义  
+**type**：发送者的类型（sensor、回路、Gate、Server...实际取值要具体说明是什么Sensor，比如temperature、light等）  
+**sign**：对该条消息的签名（利用公钥算法，防止消息伪造，Demo中可以不实现，保留字段）  
+**ver**：协议的版本号（在协议升级的时候，服务器可以识别老的设备，也可以实现新老设备混用）  
 **payload**：业务数据
 
 - **MQTT topic**
