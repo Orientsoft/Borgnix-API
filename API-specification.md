@@ -64,18 +64,16 @@ server.pub( 'user/userUuid/dev_list/down'
       tgt: <receiver_uuid>,
       time: <timestamp>,
       action: ['cmd'/'data'...],
-      type: <sensor_type>,
       sign: <msg signature>,
       ver: '1.0',
       payload: { content }
 }
 ```
-**src**：发送者的UUID  
-**dst**：接收者的UUID（与云服务器通信其实不需要该字段，但保留该字段，用于以后支持透传功能）  
-**time**：发送时间戳，有两个作用，一是确定消息时间，二是配合加密算法抵抗重播攻击  
-**action**：该信息的意义  
-**type**：发送者的类型（sensor、回路、Gate、Server...实际取值要具体说明是什么Sensor，比如temperature、light等）  
-**sign**：对该条消息的签名（利用公钥算法，防止消息伪造，Demo中可以不实现，保留字段）  
+**src**：发送者的UUID （可选）
+**dst**：接收者的UUID（与云服务器通信其实不需要该字段，但保留该字段，用于以后支持透传功能）（可选）  
+**time**：发送时间戳，有两个作用，一是确定消息时间，二是配合加密算法抵抗重播攻击  （可选）
+**action**：该消息的动作("data"数据,"cmd"命令，目前只有这两种类型）  
+**sign**：对该条消息的签名（利用公钥算法，防止消息伪造，Demo中可以不实现，保留字段）（可选）  
 **ver**：协议的版本号（在协议升级的时候，服务器可以识别老的设备，也可以实现新老设备混用）  
 **payload**：业务数据
 
@@ -106,10 +104,10 @@ Return: {del: [uuid]}
 Return: {uuid: devUUID, token: devToken}  
 说明：该API用于设备端申请UUID和Token，注册后需要与用户进行关联   
 ```
-client.pub('user/userUuid/dev_reg/up', {devType:devType, devToken:devToken})
-client.sub('user/userUuid/dev_reg/down')
-server.sub('user/+/dev_reg/up')
-server.pub('user/userUuid/dev_reg/down')
+client.pub('user/userUuid/dev_reg/o', {devType:devType, devToken:devToken})
+client.sub('user/userUuid/dev_reg/i')
+server.sub('user/+/dev_reg/o')
+server.pub('user/userUuid/dev_reg/i')
 ```
 
 - **BorgDevResetToken(uuid, userUuid, userToken)**  
