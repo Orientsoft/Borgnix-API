@@ -36,27 +36,26 @@ server.pub( 'user/userUuid/dev_list/down'
 设备
 ------------
 
-设备通信API与用户无关，直接使用设备的认证信息。
 
-- **BorgDevConnect(host, port, uuid, token, msgCB)**  
-Return: {status: status}  
-连接成功时返回值中status为‘success’，失败时为‘failed’  
-说明：在连接的时候，指定收到数据的Callback。Connect API内部会自动管理Socket，当已经有Socket连接的时候自动重用。注册成功后，设备publish使用UUID/i,subcribe使用UUID/o。  
+- **Connect**  
+1. 使用设备uuid和token做验证，用户指定clientID（用于表示设备类型，可以重复，与认证无关），连接到borgnix MQTT broker；
+2. 连接成功后，subscribe ***uuid/i***，确定收到消息后的回调函数。
 
-- **BorgDevDisconnect(uuid, token)**  
-Return: {}  
+- **Disconnect**  
+1. 断开与borgnix MQTT broker 的连接。
 
-- **BorgDevSend(payload)**  
-Return: {}  
-说明：用户只需给出payload，API会自动添加通信协议层数据项。  
-```
-client.pub('dev/DEV_UUID/up', wrap(payload))
-```
+- **Send**  
+1. 将payload根据通信层协议封装；
+2. 将封装后的包用***uuid/o*** publish到borgnix MQTT broker。
+
+- **Receive**  
+1. 收到***uuid/i***的消息时，根据通信层协议对消息进行解码，得到payload；
+2. 将payload传给相应的回调函数。
 
 管理
 -----
 
-<<<<<<< HEAD
+
 - **BorgUserRegister(username, password)**  
   Return: {uuid: userUUID, token: userToken}  
   说明：用户名密码注册，返回用户UUID和Token
@@ -111,4 +110,3 @@ client.pub('user/userUuid/claim/up'
 Retired:
 - **BorgDevReceive()**  
 Return: dataJson  
->>>>>>> origin/master
